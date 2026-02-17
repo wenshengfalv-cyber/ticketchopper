@@ -179,7 +179,8 @@
     "desc": "Stay informed about criminal law, traffic violations, and legal defense strategies",
     "relatedArticles": "Related Articles",
     "willAppear": "Related articles will appear here",
-    "shareThisArticle": "Share this article"
+    "shareThisArticle": "Share this article",
+    "showAll": "Showing all blog posts"
   },
   "contact": {
     "title":"Contact Us",

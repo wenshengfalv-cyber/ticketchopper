@@ -81,10 +81,7 @@ const computedBlogPosts = computed(() => ({
       <!-- Pagination -->
       <div class="mt-12 flex justify-center">
         <div class="text-gray-500">
-          {{ currentLang === 'en' 
-            ? 'Showing all blog posts' 
-            : '显示所有博客文章' 
-          }}
+          {{ t('blogs.showAll') }}
         </div>
       </div>
     </div>
