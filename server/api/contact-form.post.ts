@@ -35,6 +35,30 @@ export default defineEventHandler(async (event) => {
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com'
 
   try {
+    // Create or update contact in Brevo CRM
+    const contactResponse = await fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'api-key': brevoApiKey,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        attributes: {
+          FIRSTNAME: name.split(' ')[0],
+          LASTNAME: name.split(' ').slice(1).join(' ') || '',
+          PHONE: phone
+        },
+        updateEnabled: true
+      })
+    })
+
+    if (!contactResponse.ok) {
+      const errorData = await contactResponse.json()
+      console.error('Brevo CRM error:', errorData)
+    }
+
     // Send email via Brevo API
     const response = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
