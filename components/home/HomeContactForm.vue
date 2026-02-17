@@ -2,10 +2,11 @@
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
+import InputField from '../form/InputField.vue'
+import TextareaField from '../form/TextareaField.vue'
 
 const { t } = useI18n()
 const route = useRoute()
-const currentLang = computed(() => route.params.lang || 'zh')
 
 defineProps({
   currentLang: {
@@ -46,44 +47,15 @@ const submitForm = () => {
 
         <form @submit.prevent="submitForm" class="space-y-4">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              v-model="form.name"
-              type="text"
-              :placeholder="t('contact.yourName')"
-              required
-              class="px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            <input
-              v-model="form.email"
-              type="email"
-              :placeholder="t('contact.yourEmail')"
-              required
-              class="px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+            <InputField v-model="form.name" :placeholder="t('contact.yourName')" required />
+            <InputField v-model="form.email" type="email" :placeholder="t('contact.yourEmail')" required />
           </div>
 
-          <input
-            v-model="form.phone"
-            type="tel"
-            :placeholder="t('contact.yourPhone')"
-            required
-            class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
+          <InputField v-model="form.phone" type="tel" :placeholder="t('contact.yourPhone')" required />
 
-          <input
-            v-model="form.subject"
-            type="text"
-            :placeholder="t('contact.subject')"
-            class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
+          <InputField v-model="form.subject" :placeholder="t('contact.subject')" />
 
-          <textarea
-            v-model="form.message"
-            :placeholder="t('contact.message')"
-            rows="5"
-            required
-            class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          ></textarea>
+          <TextareaField v-model="form.message" :placeholder="t('contact.message')" rows="5" required />
 
           <button
             type="submit"
