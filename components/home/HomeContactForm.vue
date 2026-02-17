@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import InputField from '../form/InputField.vue'
 import TextareaField from '../form/TextareaField.vue'
 
@@ -24,13 +24,40 @@ const form = ref({
 })
 
 const submitted = ref(false)
+const error = ref('')
+const loading = ref(false)
 
-const submitForm = () => {
-  submitted.value = true
-  setTimeout(() => {
+const submitForm = async () => {
+  error.value = ''
+  loading.value = true
+
+  try {
+    const response = await fetch('/api/contact-form', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(form.value)
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json()
+      throw new Error(errorData.statusMessage || 'Failed to submit form')
+    }
+
+    submitted.value = true
     form.value = { name: '', email: '', phone: '', subject: '', message: '' }
-    submitted.value = false
-  }, 2000)
+
+    // Reset success message after 5 seconds
+    setTimeout(() => {
+      submitted.value = false
+    }, 5000)
+  } catch (err: any) {
+    error.value = err.message || 'An error occurred while submitting the form'
+    console.error('Form submission error:', err)
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -59,13 +86,18 @@ const submitForm = () => {
 
           <button
             type="submit"
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105"
+            :disabled="loading"
+            class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 disabled:hover:scale-100"
           >
-            {{ t('contact.submit') }}
+            {{ loading ? t('contact.submitting') || 'Submitting...' : t('contact.submit') }}
           </button>
 
-          <div v-if="submitted" class="text-center text-green-300">
+          <div v-if="submitted" class="text-center text-green-300 bg-green-900 bg-opacity-20 p-3 rounded">
             {{ t('contact.thankYou') }}
+          </div>
+
+          <div v-if="error" class="text-center text-red-300 bg-red-900 bg-opacity-20 p-3 rounded">
+            {{ error }}
           </div>
         </form>
       </div>
