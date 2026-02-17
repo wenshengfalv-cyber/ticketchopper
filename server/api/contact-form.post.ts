@@ -1,4 +1,5 @@
 import { defineEventHandler, readBody, createError } from 'h3'
+import { createOrUpdateContact, sendEmailViaBrevo } from '../utils/brevoClient'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -36,23 +37,15 @@ export default defineEventHandler(async (event) => {
 
   try {
     // Create or update contact in Brevo CRM
-    const contactResponse = await fetch('https://api.brevo.com/v3/contacts', {
-      method: 'POST',
-      headers: {
-        'accept': 'application/json',
-        'api-key': brevoApiKey,
-        'content-type': 'application/json'
+    const contactResponse = await createOrUpdateContact(
+      email,
+      {
+        FIRSTNAME: name.split(' ')[0],
+        LASTNAME: name.split(' ').slice(1).join(' ') || '',
+        PHONE: phone
       },
-      body: JSON.stringify({
-        email: email,
-        attributes: {
-          FIRSTNAME: name.split(' ')[0],
-          LASTNAME: name.split(' ').slice(1).join(' ') || '',
-          PHONE: phone
-        },
-        updateEnabled: true
-      })
-    })
+      brevoApiKey
+    )
 
     if (!contactResponse.ok) {
       const errorData = await contactResponse.json()
@@ -60,26 +53,19 @@ export default defineEventHandler(async (event) => {
     }
 
     // Send email via Brevo API
-    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-      method: 'POST',
-      headers: {
-        'accept': 'application/json',
-        'api-key': brevoApiKey,
-        'content-type': 'application/json'
+    const response = await sendEmailViaBrevo(
+      {
+        name: 'Website Contact Form',
+        email: 'wenshengfalv@gmail.com'
       },
-      body: JSON.stringify({
-        sender: {
-          name: name,
-          email: email
-        },
-        to: [
-          {
-            email: adminEmail,
-            name: 'Admin'
-          }
-        ],
-        subject: subject || `New Contact Form Submission from ${name}`,
-        htmlContent: `
+      [
+        {
+          email: 'wenshengfalv@gmail.com',
+          name: 'Admin'
+        }
+      ],
+      subject || `New Contact Form Submission from ${name}`,
+      `
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${escapeHtml(name)}</p>
           <p><strong>Email:</strong> ${escapeHtml(email)}</p>
@@ -88,7 +74,7 @@ export default defineEventHandler(async (event) => {
           <h3>Message:</h3>
           <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
         `,
-        textContent: `
+      `
 New Contact Form Submission
 
 Name: ${name}
@@ -98,9 +84,9 @@ Subject: ${subject || 'N/A'}
 
 Message:
 ${message}
-        `
-      })
-    })
+        `,
+      brevoApiKey
+    )
 
     if (!response.ok) {
       const errorData = await response.json()

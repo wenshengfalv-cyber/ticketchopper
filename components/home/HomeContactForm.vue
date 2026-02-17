@@ -89,7 +89,7 @@ const submitForm = async () => {
             :disabled="loading"
             class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-8 py-4 rounded-lg font-semibold transition-all transform hover:scale-105 disabled:hover:scale-100"
           >
-            {{ loading ? t('contact.submitting') || 'Submitting...' : t('contact.submit') }}
+            {{ loading ? t('contact.submitting') : t('contact.submit') }}
           </button>
 
           <div v-if="submitted" class="text-center text-green-300 bg-green-900 bg-opacity-20 p-3 rounded">

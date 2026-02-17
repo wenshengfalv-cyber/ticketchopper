@@ -211,6 +211,7 @@
     "subject": "主题",
     "message": "信息 *",
     "submit": "现在提交",
+    "submitting": "提交中...",
     "thankYou": "谢谢！我们很快会与您联系。",
     "form": {"name":"姓名*","email":"E-mail *","phone":"电话*","subject":"主题","message":"信息","submit":"现在提交"}
   },

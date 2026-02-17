@@ -193,6 +193,7 @@
     "subject": "Subject",
     "message": "Message *",
     "submit": "Submit Now",
+    "submitting": "Submitting...",
     "thankYou": "Thank you! We will contact you soon.",
     "form": {"name":"Name*","email":"E-mail *","phone":"Phone*","subject":"Subject","message":"Message","submit":"Submit Now"}
   },
