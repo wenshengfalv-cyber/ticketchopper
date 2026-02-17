@@ -10,7 +10,7 @@ definePageMeta({
 const route = useRoute()
 const { locale, t } = useI18n()
 
-const lang = (route.params.lang === 'en') ? 'en' : 'zh'
+const lang = route.params.lang || 'zh'
 locale.value = lang
 const currentLang = lang
 
