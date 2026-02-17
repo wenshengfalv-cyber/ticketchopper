@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from 'vue'
 import { useBlogPosts } from '~/composables/useBlogPosts'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 defineProps({
   currentLang: {
@@ -67,7 +69,7 @@ const computedBlogPosts = computed(() => ({
               :href="`/${currentLang}/blog/${post.slug}`"
               class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors"
             >
-              {{ currentLang === 'en' ? 'Read More' : '阅读更多' }}
+              {{ t('common.readMore') }}
               <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>

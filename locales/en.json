@@ -171,7 +171,8 @@
     "contactUs": "Contact Us",
     "blogNotFound": "Blog Post Not Found",
     "general": "General",
-    "learnMore": "Learn More →"
+    "learnMore": "Learn More →",
+    "readMore": "Read More"
   },
   "blogs":{
     "title":"Legal Insights & Updates",
