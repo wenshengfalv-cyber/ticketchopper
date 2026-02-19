@@ -1,14 +1,7 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 
-defineProps({
-  currentLang: {
-    type: String,
-    default: 'zh'
-  }
-})
-
-const { t } = useI18n()
+const { t, locale } = useI18n()
 </script>
 
 <template>
@@ -16,7 +9,7 @@ const { t } = useI18n()
     <div class="absolute inset-0 opacity-10"></div>
     <div class="container mx-auto px-4 relative z-10">
       <nav class="flex items-center space-x-2 text-blue-200 mb-6">
-        <NuxtLink :to="`/${currentLang}`" class="hover:text-white transition-colors">
+        <NuxtLink :to="`/${locale}`" class="hover:text-white transition-colors">
           {{ t('common.home') }}
         </NuxtLink>
         <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">

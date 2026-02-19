@@ -1,6 +1,6 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
+const { t,locale } = useI18n()
 
 const props = defineProps({
   currentLang: {
@@ -12,7 +12,7 @@ const props = defineProps({
 const expandedItems = ref([0])
 
 const faqItems = computed(() => {
-  if (props.currentLang === 'en') {
+  if (locale.value === 'en') {
     return [
       {
         question: 'Will a lawyer or legal assistant handle my case?',
