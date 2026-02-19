@@ -51,6 +51,21 @@ export default defineNuxtConfig({
         {
           rel: 'icon', href: '/images/favicon.png', type: 'image/png', 
         }
+      ],
+      script: [
+        // Google tag (gtag.js)
+        {
+          async: true,
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-B3F8LWQB1Q'
+        },
+        {
+          innerHTML: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-B3F8LWQB1Q');
+          `
+        }
       ]
     }
   }
