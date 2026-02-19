@@ -1,9 +1,10 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
 const { t } = useI18n()
 
-const reasons = [
+const reasons = computed(() => [
   {
     icon: '⚖️',
     title: t(`whyChooseUs.reasons.legalExpertise.title`),
@@ -19,7 +20,7 @@ const reasons = [
     title: t(`whyChooseUs.reasons.legalCertification.title`),
     desc: t(`whyChooseUs.reasons.legalCertification.desc`)
   }
-]
+])
 </script>
 
 <template>
