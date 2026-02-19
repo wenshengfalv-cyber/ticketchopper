@@ -1,4 +1,7 @@
 <script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
 const props = defineProps({
   currentLang: {
     type: String,
@@ -58,10 +61,7 @@ const toggleItem = (index) => {
       <div class="max-w-4xl mx-auto">
         <div class="mb-12">
           <p class="text-lg text-gray-700 leading-relaxed mb-8">
-            {{ currentLang === 'en'
-              ? 'Below are answers to some common questions about criminal defense services provided by our lawyers and their colleagues. If you have other questions, please feel free to call us to discuss your specific case.'
-              : '以下是有关我们律师及其同事提供的刑事辩护服务的一些常见问题的解答。如果您有其他疑问，请随时致电我们讨论您案件的具体情况。'
-            }}
+            {{ t('faq.desc') }}
           </p>
         </div>
 
