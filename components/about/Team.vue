@@ -1,13 +1,14 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
 const { t } = useI18n()
 
-const teamMembers = [
+const teamMembers = computed(() => [
   { icon: '👨‍⚖️', title: t('team.members.criminalLawyers.title'), desc: t('team.members.criminalLawyers.desc') },
   { icon: '🚗', title: t('team.members.trafficLaw.title'), desc: t('team.members.trafficLaw.desc') },
   { icon: '👮', title: t('team.members.lawEnforcement.title'), desc: t('team.members.lawEnforcement.desc') },
-]
+])
 </script>
 
 <template>
