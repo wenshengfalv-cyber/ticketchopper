@@ -1,13 +1,6 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 
-defineProps({
-  currentLang: {
-    type: String,
-    default: 'zh'
-  }
-})
-
 const { t } = useI18n()
 </script>
 

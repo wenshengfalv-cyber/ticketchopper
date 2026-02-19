@@ -1,9 +1,7 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
-import { useRoute } from '#app'
 
-const { t } = useI18n()
-const route = useRoute()
+const { t, locale } = useI18n()
 
 const trafficItems = [
   'speed',
@@ -15,8 +13,7 @@ const trafficItems = [
 ]
 
 const getDetailLink = (item) => {
-  const lang = route.params.lang || 'en'
-  return `/${lang}/traffic/${item}`
+  return `/${locale.value}/traffic/${item}`
 }
 </script>
 

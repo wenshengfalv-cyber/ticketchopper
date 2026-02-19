@@ -2,21 +2,12 @@
 import { computed } from 'vue'
 import { useBlogPosts } from '~/composables/useBlogPosts'
 import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
 
-defineProps({
-  currentLang: {
-    type: String,
-    default: 'zh'
-  }
-})
+const { t, locale } = useI18n()
 
 const { getAllPosts } = useBlogPosts()
 
-const computedBlogPosts = computed(() => ({
-  zh: getAllPosts('zh'),
-  en: getAllPosts('en')
-}))
+const computedBlogPosts = computed(() => getAllPosts(locale.value))
 </script>
 
 <template>
@@ -25,7 +16,7 @@ const computedBlogPosts = computed(() => ({
       <!-- Blog Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <article
-          v-for="post in computedBlogPosts[currentLang]"
+          v-for="post in computedBlogPosts"
           :key="post.id"
           class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
         >
@@ -38,7 +29,7 @@ const computedBlogPosts = computed(() => ({
           <!-- Content -->
           <div class="p-6">
             <h2 class="text-xl font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors">
-              <a :href="`/${currentLang}/blog/${post.slug}`">
+              <a :href="`/${locale}/blog/${post.slug}`">
                 {{ post.title }}
               </a>
             </h2>
@@ -66,7 +57,7 @@ const computedBlogPosts = computed(() => ({
 
             <!-- Read More Link -->
             <a
-              :href="`/${currentLang}/blog/${post.slug}`"
+              :href="`/${locale}/blog/${post.slug}`"
               class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors"
             >
               {{ t('common.readMore') }}

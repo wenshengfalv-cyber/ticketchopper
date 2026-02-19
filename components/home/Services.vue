@@ -1,23 +1,20 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
-import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
-const { t } = useI18n()
-const route = useRoute()
-const currentLang = route.params.lang || 'zh'
+const { t, locale } = useI18n()
 
-const services = [
+const services = computed(() => [
   { key: 'dui', icon: '🚗', slug: 'impaired-driving-cannabis-laws' },
   { key: 'domestic', icon: '⚖️', slug: 'domestic-violence-assault-canada' },
   { key: 'theft', icon: '📋', slug: 'petty-theft-concept-consequences' },
   { key: 'dangerous', icon: '⚠️', slug: 'dangerous-driving-definition' },
   { key: 'fraud', icon: '🔍', slug: 'fraud-definition-consequences' },
   { key: 'mischief', icon: '📌', slug: 'mischief-definition-consequences' }
-]
+])
 
 const getBlogUrl = (slug) => {
-  const lang = currentLang || 'zh'
-  return `/${lang}/blog/${slug}`
+  return `/${locale.value}/blog/${slug}`
 }
 </script>
 

@@ -12,7 +12,6 @@ const { locale, t } = useI18n()
 
 const lang = route.params.lang || 'zh'
 locale.value = lang
-const currentLang = lang
 
 useSeo({
   title: t('meta.title'),
@@ -25,7 +24,7 @@ useSeo({
   <HomeHero />
   <HomeServices />
   <HomeTrafficViolations />
-  <CaseGallery :current-lang="currentLang" />
+  <CaseGallery />
   <HomeStats />
   <HomeContactForm />
 </template>

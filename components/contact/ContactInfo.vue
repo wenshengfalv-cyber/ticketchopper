@@ -2,13 +2,6 @@
 import { useI18n } from 'vue-i18n'
 import { COMPANY_ADDRESS, PHONE_NUMBER, WECHAT_NUMBER, WECHAT_QR } from '../../constant/text';
 
-defineProps({
-  currentLang: {
-    type: String,
-    default: 'zh'
-  }
-})
-
 const { t } = useI18n()
 </script>
 

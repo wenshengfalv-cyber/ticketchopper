@@ -8,13 +8,6 @@ import TextareaField from '../form/TextareaField.vue'
 const { t } = useI18n()
 const route = useRoute()
 
-defineProps({
-  currentLang: {
-    type: String,
-    default: 'zh'
-  }
-})
-
 const form = ref({
   name: '',
   email: '',
