@@ -2,14 +2,7 @@
 import { ref, computed, watch, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const { t, locale } = useI18n()
-
-defineProps({
-  currentLang: {
-    type: String,
-    default: 'en'
-  }
-})
+const { t } = useI18n()
 
 // Generate array of case images (1-40) using placeholder service
 const caseImages = computed(() => {
