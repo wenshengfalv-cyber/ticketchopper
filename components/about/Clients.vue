@@ -1,9 +1,10 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
 const { t } = useI18n()
 
-const clients = [
+const clients = computed(() => [
   { name: 'Leo', title: t('clients.people.Leo')},
   { name: 'Ivan', title: t('clients.people.Ivan')},
   { name: 'Howard', title: t('clients.people.Howard')},
@@ -11,7 +12,7 @@ const clients = [
   { name: 'Eric', title: t('clients.people.Eric')},
   { name: 'Jacky', title: t('clients.people.Jacky')},
   { name: 'Jeffrey', title: t('clients.people.Jeffrey')},
-]
+])
 </script>
 
 <template>
